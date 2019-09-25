@@ -5,7 +5,7 @@ import monitorReducersEnhancer from '../enhancers/monitor-reducers';
 import loggerMiddleware from '../middleware/logger';
 import rootReducer from '../reducers/reducers';
 
-export default function configureStore(preloadedState) {
+export default function configureStore(preloadedState = {}) {
   const middlewares = [loggerMiddleware, thunkMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 

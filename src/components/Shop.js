@@ -1,10 +1,11 @@
 import React from 'react';
+import Listing from './Listing';
 
-const Shop = ({ children }) => (
+const Shop = ({ products, addItem }) => (
   <main className="content shop">
     <h1 className="page--heading">Shop our Products</h1>
     <section className="product--section">
-      {children}
+      {products.map(item => <Listing key={item.number} {...{ ...item, addItem }} />)}
     </section>
   </main>
 );

@@ -1,6 +1,16 @@
 import React from 'react';
+import CartItems from './CartItems';
+import CartSummary from './CartSummary';
+import LineItem from './LineItem';
 
-const Cart = ({ cartCount, children }) => (
+const Cart = ({
+  cart,
+  cartCount,
+  removeItem,
+  shipping,
+  subtotal,
+  total,
+}) => (
   <main className="content cart">
     <h1 className="page--heading">
       {cartCount > 0
@@ -9,7 +19,10 @@ const Cart = ({ cartCount, children }) => (
       }
     </h1>
     <section className="cart--section">
-      {children}
+      <CartItems>
+        {cart.map((item) => <LineItem key={item.number} {...{ ...item, removeItem }} />)}
+      </CartItems>
+      <CartSummary {...{ shipping, subtotal, total }} />
     </section>
   </main>
 );

@@ -1,7 +1,6 @@
-import { ADD_ITEM, REMOVE_ITEM } from '../actions/action-types';
-import data from '../store/data';
+import { ADD_ITEM, REMOVE_ITEM, PRELOAD_STATE } from '../actions/action-types';
 
-export const addItem = (state = {}, key) => {
+export const addItem = (state = {}, key, shipping) => {
   let cart;
 
   if (state.cart.filter(item => item.number === key).length === 1) {
@@ -24,12 +23,12 @@ export const addItem = (state = {}, key) => {
     cart,
     cartCount,
     subtotal,
-    total: (subtotal > 0 ? subtotal + data.shipping : 0),
-    shipping: (subtotal > 0 ? data.shipping : 0),
+    total: (subtotal > 0 ? subtotal + shipping : 0),
+    shipping: (subtotal > 0 ? shipping : 0),
   };
 }
 
-export const removeItem = (state = {}, key) => {
+export const removeItem = (state = {}, key, shipping) => {
   const cart = state.cart.reduce((accum, item) => {
     if (item.number === key) {
       if (item.qty > 1) {
@@ -50,18 +49,30 @@ export const removeItem = (state = {}, key) => {
     cart,
     cartCount,
     subtotal,
-    total: (subtotal > 0 ? subtotal + data.shipping : 0),
-    shipping: (subtotal > 0 ? data.shipping : 0),
+    total: (subtotal > 0 ? subtotal + shipping : 0),
+    shipping: (subtotal > 0 ? shipping : 0),
   };
 };
 
+export const preloadState = products => ({
+  products,
+  shipping: 0,
+  cart: [],
+  cartCount: 0,
+  subtotal: 0,
+  total: 0,
+});
+
 const rootReducer = (state = {}, action) => {
   switch(action.type) {
-    case ADD_ITEM: 
-      return addItem(state, action.key);
+    case ADD_ITEM:
+      return addItem(state, action.key, action.shipping);
 
-    case REMOVE_ITEM: 
-      return removeItem(state, action.key);
+    case REMOVE_ITEM:
+      return removeItem(state, action.key, action.shipping);
+
+    case PRELOAD_STATE:
+      return preloadState(action.products);
 
     default:
       return state;
