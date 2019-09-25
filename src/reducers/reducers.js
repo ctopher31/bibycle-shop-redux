@@ -1,4 +1,5 @@
 import { ADD_ITEM, REMOVE_ITEM } from '../actions/action-types';
+import data from '../store/data';
 
 export const addItem = (state = {}, key) => {
   let cart;
@@ -23,8 +24,8 @@ export const addItem = (state = {}, key) => {
     cart,
     cartCount,
     subtotal,
-    total: (subtotal > 0 ? subtotal + state.shipping : 0),
-    shipping: (subtotal > 0 ? state.shipping : 0),
+    total: (subtotal > 0 ? subtotal + data.shipping : 0),
+    shipping: (subtotal > 0 ? data.shipping : 0),
   };
 }
 
@@ -49,8 +50,8 @@ export const removeItem = (state = {}, key) => {
     cart,
     cartCount,
     subtotal,
-    total: (subtotal > 0 ? subtotal + state.shipping : 0),
-    shipping: (subtotal > 0 ? state.shipping : 0),
+    total: (subtotal > 0 ? subtotal + data.shipping : 0),
+    shipping: (subtotal > 0 ? data.shipping : 0),
   };
 };
 

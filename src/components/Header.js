@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 
 const Header = ({ cartCount }) => (
@@ -25,6 +24,4 @@ const Header = ({ cartCount }) => (
   </header>
 );
 
-const mapStateToProps = state => ({ cartCount: state.cartCount, });
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;

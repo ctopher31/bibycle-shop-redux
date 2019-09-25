@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { addItem as addItemAction } from '../actions/actions';
 
 const Listing = ({
   number,
@@ -23,6 +21,4 @@ const Listing = ({
   </div>
 );
 
-const mapDispatchToProps = dispatch => ({ addItem: number => dispatch(addItemAction(number)), });
-
-export default connect(null, mapDispatchToProps)(Listing);
+export default Listing;

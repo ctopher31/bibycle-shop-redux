@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { removeItem as removeItemAction } from '../actions/actions';
 
 const LineItem = ({
   number,
@@ -16,7 +14,7 @@ const LineItem = ({
       <li>Number: {number}</li>
       <li>Name: {name}</li>
       <li>Price: ${price.toFixed(2)}</li>
-      <li className={onSale === false ? 'hide' : 'on-sale'}>{onSale === false ? '' : 'On Sale'}</li>
+      <li className={onSale === false ? 'hide' : 'on-sale'}>On Sale</li>
       <li className={onSale === false ? 'hide' : 'on-sale'}>Sale Price: ${salePrice.toFixed(2)}</li>
       <li>Quantity: {qty}</li>
     </ul>
@@ -24,6 +22,4 @@ const LineItem = ({
   </div>
 );
 
-const mapDispatchToProps = dispatch => ({ removeItem: number => dispatch(removeItemAction(number)), });
-
-export default connect(null, mapDispatchToProps)(LineItem);
+export default LineItem;

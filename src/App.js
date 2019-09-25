@@ -1,17 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
-import Header from './components/Header';
+import HeaderContainer from './components/HeaderContainer';
 import Footer from './components/Footer';
-import Shop from './components/Shop';
-import Cart from './components/Cart';
+import ShopContainer from './components/ShopContainer';
+import CartContainer from './components/CartContainer';
 
 const App = () => (
   <Router>
-    <Header />
+    <HeaderContainer />
 
-    <Route exact path="/" component={Shop} />
-    <Route path="/cart" component={Cart} />
+    <Route exact path="/" component={ShopContainer} />
+    <Route path="/cart" component={CartContainer} />
 
     <Footer />
   </Router>

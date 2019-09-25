@@ -1,10 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import CartItems from './CartItems';
-import CartSummary from './CartSummary';
-import LineItem from './LineItem';
 
-const Cart = ({ cart, cartCount }) => (
+const Cart = ({ cartCount, children }) => (
   <main className="content cart">
     <h1 className="page--heading">
       {cartCount > 0
@@ -13,17 +9,9 @@ const Cart = ({ cart, cartCount }) => (
       }
     </h1>
     <section className="cart--section">
-      <CartItems>
-        {cart.map((item) => <LineItem key={item.number} {...item} />)}
-      </CartItems>
-      <CartSummary />
+      {children}
     </section>
   </main>
 );
 
-const mapStateToProps = state => ({
-  cart: state.cart,
-  cartCount: state.cartCount,
-});
-
-export default connect(mapStateToProps, null)(Cart);
+export default Cart;
