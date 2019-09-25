@@ -4,11 +4,11 @@ import CartItems from './CartItems';
 import CartSummary from './CartSummary';
 import LineItem from './LineItem';
 
-const Cart = ({ cart }) => (
+const Cart = ({ cart, cartCount }) => (
   <main className="content cart">
     <h1 className="page--heading">
-      {cart.length > 0
-        ? `Your Cart has ${cart.length} Item${cart.length > 1 ? 's' : ''}`
+      {cartCount > 0
+        ? `Your Cart has ${cartCount} Item${cartCount > 1 ? 's' : ''}`
         : 'Your Cart is Empty'
       }
     </h1>
@@ -21,6 +21,9 @@ const Cart = ({ cart }) => (
   </main>
 );
 
-const mapStateToProps = state => ({ cart: state.cart, });
+const mapStateToProps = state => ({
+  cart: state.cart,
+  cartCount: state.cartCount,
+});
 
 export default connect(mapStateToProps, null)(Cart);
