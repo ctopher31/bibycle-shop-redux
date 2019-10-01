@@ -17,7 +17,7 @@ const Header = ({ cartCount }) => (
     <nav className="nav secondary-nav">
       <ul className="nav--list secondary-nav--list">
         <li className="cart--link">
-          <Link className="nav--link" to="/cart">Cart (<span className="cart--count">{cartCount}</span>)</Link>
+          <Link className="nav--link" to="/cart/">Cart (<span className="cart--count">{cartCount}</span>)</Link>
         </li>
       </ul>
     </nav>

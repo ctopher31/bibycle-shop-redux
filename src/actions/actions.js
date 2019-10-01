@@ -19,21 +19,21 @@ export const preloadState = products => ({
 
 export const addItemAction = key => async dispatch => {
   // Re-calculate Shipping
-  const response = await fetch('http://localhost:3000/data.json');
+  const response = await fetch(`${window.location.origin}/data.json`);
   const { shipping } = await response.json();
   dispatch(addItem(key, shipping));
 };
 
 export const removeItemAction = key => async dispatch => {
   // Re-calculate Shipping
-  const response = await fetch('http://localhost:3000/data.json');
+  const response = await fetch(`${window.location.origin}/data.json`);
   const { shipping } = await response.json();
   dispatch(removeItem(key, shipping));
 };
 
 export const preloadStateAction = () => async dispatch => {
   // Fetch products
-  const response = await fetch('http://localhost:3000/data.json');
+  const response = await fetch(`${window.location.origin}/data.json`);
   const { products } = await response.json();
   dispatch(preloadState(products));
 };
