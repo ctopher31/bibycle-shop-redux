@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Header = ({ cartCount }) => (
   <header className="header">
     <div className="brand--container">
-      <img className="brand--logo" src="bicycle.jpg" alt="Brand Logo" />
+      <img className="brand--logo" src="/bicycle.jpg" alt="Brand Logo" />
       <Link className="brand--link" to="/">Bicycle Shop</Link>
     </div>
     <nav className="nav primary-nav">
