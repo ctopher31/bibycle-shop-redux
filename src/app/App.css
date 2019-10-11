@@ -42,7 +42,7 @@ body {
 .brand--link {
   color: #fff;
   text-decoration: none;
-} 
+}
 
 .footer {
   align-self: flex-end;
@@ -87,7 +87,7 @@ body {
 
 .cart--items {
   background-color: #fff;
-  border: .0625rem solid #212121;
+  border: 0.0625rem solid #212121;
   height: fit-content;
   margin-right: 2rem;
   padding: 0 1rem 2rem;
@@ -96,7 +96,7 @@ body {
 
 .cart--summary {
   background-color: #fff;
-  border: .0625rem solid #212121;
+  border: 0.0625rem solid #212121;
   height: fit-content;
   padding: 0 1rem 2rem;
   width: 14rem;

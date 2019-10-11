@@ -3,7 +3,7 @@ import { ADD_ITEM, REMOVE_ITEM, PRELOAD_STATE } from '../actions/action-types';
 export const addItem = (state = {}, key, shipping) => {
   let cart;
 
-  if (state.cart.filter(item => item.number === key).length === 1) {
+  if (state.cart.some(item => item.number === key)) {
     cart = state.cart.map(item => {
       if (item.number === key) {
         item.qty += 1;

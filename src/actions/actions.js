@@ -17,6 +17,7 @@ export const preloadState = products => ({
   products,
 });
 
+// abstract
 export const addItemAction = key => async dispatch => {
   // Re-calculate Shipping
   const response = await fetch(`${window.location.origin}/data.json`);
