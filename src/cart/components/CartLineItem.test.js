@@ -1,29 +1,28 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import ProductListing from './ProductListing';
+import { mount } from 'enzyme';
+import CartLineItem from './CartLineItem';
 
-configure({ adapter: new Adapter() });
-
-describe('ProductListing component', () => {
+describe('CartLineItem component', () => {
   it('renders correctly', () => {
-    const product = {
+    const cartItem = {
       number: '51001',
       name: 'widget',
       price: 35.57,
       salePrice: 32.95,
       onSale: true,
+      qty: 1,
     };
-    const addItem = () => 1;
-    const wrapper = mount(<ProductListing {...{ ...product, addItem }} />);
+    const removeItem = () => 1;
+    const wrapper = mount(<CartLineItem {...{ ...cartItem, removeItem }} />);
 
-    expect(wrapper.exists('.product--container')).toBe(true);
+    expect(wrapper.exists('.cart-lineitem--container')).toBe(true);
     expect(wrapper.props().number).toEqual('51001');
     expect(wrapper.props().name).toEqual('widget');
     expect(wrapper.props().price).toEqual(35.57);
     expect(wrapper.props().salePrice).toEqual(32.95);
     expect(wrapper.props().onSale).toEqual(true);
-    expect(wrapper.props().addItem()).toEqual(1);
+    expect(wrapper.props().qty).toEqual(1);
+    expect(wrapper.props().removeItem()).toEqual(1);
     expect(wrapper).toMatchSnapshot();
   });
 });

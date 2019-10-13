@@ -1,14 +1,6 @@
 import { ADD_ITEM } from './actionTypes';
 
-export const addItem = (key, shipping) => ({
+export const addItem = payload => ({
   type: ADD_ITEM,
-  key,
-  shipping,
+  payload,
 });
-
-export const addItemAction = key => async dispatch => {
-  // Re-calculate Shipping
-  const response = await fetch(`${window.location.origin}/data.json`);
-  const { shipping } = await response.json();
-  dispatch(addItem(key, shipping));
-};

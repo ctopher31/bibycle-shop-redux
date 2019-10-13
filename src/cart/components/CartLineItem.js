@@ -1,15 +1,7 @@
 import React from 'react';
 
-const LineItem = ({
-  number,
-  name,
-  price,
-  onSale,
-  salePrice,
-  qty,
-  removeItem,
-}) => (
-  <div className="lineitem--container">
+const CartLineItem = ({ number, name, price, onSale, salePrice, qty, removeItem }) => (
+  <div className="cart-lineitem--container">
     <ul>
       <li>Number: {number}</li>
       <li>Name: {name}</li>
@@ -22,4 +14,4 @@ const LineItem = ({
   </div>
 );
 
-export default LineItem;
+export default CartLineItem;

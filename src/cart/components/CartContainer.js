@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { removeItemAction } from '../actions/actions';
+import { removeItemAction } from '../sagas';
 import Cart from './Cart';
 
 const mapStateToProps = state => ({
@@ -10,6 +10,9 @@ const mapStateToProps = state => ({
   total: state.total,
 });
 
-const mapDispatchToProps = dispatch => ({ removeItem: key => dispatch(removeItemAction(key)), });
+const mapDispatchToProps = dispatch => ({ removeItem: key => dispatch(removeItemAction(key)) });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cart);

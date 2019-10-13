@@ -4,8 +4,8 @@ import '../App.css';
 import HeaderContainer from './HeaderContainer';
 import Footer from './Footer';
 
-const ProductsContainer = lazy(() => import('../products/components/ProductsContainer'));
-const CartContainer = lazy(() => import('../cart/components/CartContainer'));
+const ProductsContainer = lazy(() => import('../../products/components/ProductsContainer'));
+const CartContainer = lazy(() => import('../../cart/components/CartContainer'));
 
 const App = () => (
   <Router>

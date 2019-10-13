@@ -1,29 +1,24 @@
 import React from 'react';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { mount } from 'enzyme';
 import ProductsContainer from './ProductsContainer';
 import Products from './Products';
-import { configureStore } from '../../store/store';
-
-configure({ adapter: new Adapter() });
+import productsReducer from '../reducers';
 
 describe('ProductsContainer', () => {
   it('should render the container component', () => {
-    const products = [
-      {
-        number: '51001',
-        name: 'widget',
-        price: 35.57,
-        salePrice: 32.95,
-        onSale: true,
-      },
-    ];
-    const addItem = () => 1;
-
-    const store = configureStore({
-      products,
-      addItem,
+    const store = createStore(productsReducer, {
+      products: [
+        {
+          number: '51001',
+          name: 'widget',
+          price: 35.57,
+          salePrice: 32.95,
+          onSale: true,
+        },
+      ],
+      addItem: () => 1,
     });
 
     const wrapper = mount(
