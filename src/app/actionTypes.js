@@ -1,1 +1,0 @@
-export const PRELOAD_STATE = 'PRELOAD_STATE';

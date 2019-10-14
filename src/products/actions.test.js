@@ -1,13 +1,11 @@
-import { addItem } from './actions';
-import { ADD_ITEM } from './actionTypes';
+import { loadProducts } from './actions';
+import { LOAD_PRODUCTS } from './actionTypes';
 
 describe('Products Actions', () => {
   describe('Products add item', () => {
     it('returns the correct addItem action', () => {
-      const subtotal = 32.95;
-      const shipping = 15;
       const payload = {
-        cart: [
+        items: [
           {
             number: '51001',
             name: 'widget',
@@ -16,17 +14,13 @@ describe('Products Actions', () => {
             onSale: true,
           },
         ],
-        cartCount: 1,
-        subtotal,
-        total: subtotal > 0 ? subtotal + shipping : 0,
-        shipping: subtotal > 0 ? shipping : 0,
       };
       const expectedOutput = {
-        type: ADD_ITEM,
+        type: LOAD_PRODUCTS,
         payload,
       };
 
-      expect(addItem(payload)).toEqual(expectedOutput);
+      expect(loadProducts(payload)).toEqual(expectedOutput);
     });
   });
 });

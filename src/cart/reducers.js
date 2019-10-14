@@ -1,8 +1,10 @@
-import { REMOVE_ITEM } from './actionTypes';
+import { ADD_ITEM, REMOVE_ITEM, CLEAR_CART } from './actionTypes';
 
-const cartReducer = (state = {}, action) => {
+const cart = (state = {}, action) => {
   switch (action.type) {
+    case ADD_ITEM:
     case REMOVE_ITEM:
+    case CLEAR_CART:
       return { ...state, ...action.payload };
 
     default:
@@ -10,4 +12,4 @@ const cartReducer = (state = {}, action) => {
   }
 };
 
-export default cartReducer;
+export default cart;

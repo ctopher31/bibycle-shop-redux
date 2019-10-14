@@ -1,10 +1,15 @@
 import { connect } from 'react-redux';
-import { addItemAction } from '../sagas';
+import { addItemAction, loadProductsAction } from '../sagas';
 import Products from './Products';
 
-const mapStateToProps = state => ({ products: state.products });
+const mapStateToProps = state => ({
+  items: state.products.items,
+});
 
-const mapDispatchToProps = dispatch => ({ addItem: key => dispatch(addItemAction(key)) });
+const mapDispatchToProps = dispatch => ({
+  addItem: key => dispatch(addItemAction(key)),
+  loadProducts: () => dispatch(loadProductsAction()),
+});
 
 export default connect(
   mapStateToProps,

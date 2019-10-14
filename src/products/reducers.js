@@ -1,8 +1,8 @@
-import { ADD_ITEM } from './actionTypes';
+import { LOAD_PRODUCTS } from './actionTypes';
 
-const productsReducer = (state = {}, action) => {
+const products = (state = {}, action) => {
   switch (action.type) {
-    case ADD_ITEM:
+    case LOAD_PRODUCTS:
       return { ...state, ...action.payload };
 
     default:
@@ -10,4 +10,4 @@ const productsReducer = (state = {}, action) => {
   }
 };
 
-export default productsReducer;
+export default products;

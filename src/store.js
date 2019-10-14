@@ -1,20 +1,19 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import sagasMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import monitorReducersEnhancer from './enhancers/monitor-reducers';
 import loggerMiddleware from './middleware/logger';
 import productsReducer from './products/reducers';
 import cartReducer from './cart/reducers';
-import appReducer from './app/reducers';
 
 const rootReducer = combineReducers({
-  appReducer,
-  productsReducer,
-  cartReducer,
+  products: productsReducer,
+  cart: cartReducer,
 });
 
-export const configureStore = (preloadedState = {}) => {
-  const middlewares = [loggerMiddleware, thunkMiddleware];
+const configureStore = (preloadedState = {}) => {
+  const middlewares = [loggerMiddleware /*, sagasMiddleware*/, thunkMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
   const enhancers = [middlewareEnhancer, monitorReducersEnhancer];
@@ -31,6 +30,17 @@ export const configureStore = (preloadedState = {}) => {
   return store;
 };
 
-const store = configureStore();
+const store = configureStore({
+  products: {
+    items: [],
+  },
+  cart: {
+    items: [],
+    cartCount: 0,
+    shipping: 0,
+    subtotal: 0,
+    total: 0,
+  },
+});
 
 export default store;

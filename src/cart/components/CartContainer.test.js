@@ -10,22 +10,25 @@ describe('CartContainer', () => {
   it('should render the container component', () => {
     const subtotal = 32.95;
     const shipping = 15;
-    const store = createStore(cartReducer, {
-      cart: [
-        {
-          number: '51001',
-          name: 'widget',
-          price: 35.57,
-          salePrice: 32.95,
-          onSale: true,
-        },
-      ],
-      cartCount: 1,
-      subtotal,
-      total: subtotal > 0 ? subtotal + shipping : 0,
-      shipping: subtotal > 0 ? shipping : 0,
-      removeItem: () => 1,
-    });
+    const initialState = {
+      cart: {
+        items: [
+          {
+            number: '51001',
+            name: 'widget',
+            price: 35.57,
+            salePrice: 32.95,
+            onSale: true,
+          },
+        ],
+        cartCount: 1,
+        subtotal,
+        total: subtotal > 0 ? subtotal + shipping : 0,
+        shipping: subtotal > 0 ? shipping : 0,
+      },
+    };
+
+    const store = createStore(cartReducer, initialState);
 
     const wrapper = mount(
       <Provider store={store}>
@@ -33,8 +36,9 @@ describe('CartContainer', () => {
       </Provider>
     );
 
-    expect(wrapper.find(CartContainer).length).toEqual(1);
     const container = wrapper.find(CartContainer);
+
+    expect(container.length).toEqual(1);
     expect(container.find(Cart).length).toEqual(1);
     expect(store.getState().content).toMatchSnapshot();
   });

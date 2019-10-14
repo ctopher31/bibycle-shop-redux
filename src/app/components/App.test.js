@@ -10,7 +10,9 @@ import Footer from './Footer';
 describe('App', () => {
   it('renders without crashing', () => {
     const store = createStore((state = {}) => state, {
-      cartCount: 0,
+      cart: {
+        cartCount: 0,
+      },
     });
 
     const wrapper = mount(

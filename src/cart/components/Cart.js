@@ -3,7 +3,7 @@ import CartItems from './CartItems';
 import CartSummary from './CartSummary';
 import CartLineItem from './CartLineItem';
 
-const Cart = ({ cart, cartCount, removeItem, shipping, subtotal, total }) => (
+const Cart = ({ items, cartCount, removeItem, clearCart, shipping, subtotal, total }) => (
   <main className="content cart">
     <h1 className="page--heading">
       {cartCount > 0
@@ -11,8 +11,8 @@ const Cart = ({ cart, cartCount, removeItem, shipping, subtotal, total }) => (
         : 'Your Cart is Empty'}
     </h1>
     <section className="cart--section">
-      <CartItems>
-        {cart.map(item => (
+      <CartItems {...{ clearCart }}>
+        {items.map(item => (
           <CartLineItem key={item.number} {...{ ...item, removeItem }} />
         ))}
       </CartItems>

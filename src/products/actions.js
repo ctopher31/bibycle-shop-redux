@@ -1,6 +1,6 @@
-import { ADD_ITEM } from './actionTypes';
+import { LOAD_PRODUCTS } from './actionTypes';
 
-export const addItem = payload => ({
-  type: ADD_ITEM,
+export const loadProducts = payload => ({
+  type: LOAD_PRODUCTS,
   payload,
 });

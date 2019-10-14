@@ -7,7 +7,7 @@ describe('Cart component', () => {
     const subtotal = 32.95;
     const shipping = 15;
     const props = {
-      cart: [
+      items: [
         {
           number: '51001',
           name: 'widget',
@@ -21,13 +21,14 @@ describe('Cart component', () => {
       total: subtotal > 0 ? subtotal + shipping : 0,
       shipping: subtotal > 0 ? shipping : 0,
       removeItem: () => 1,
+      clearCart: () => 1,
     };
     const wrapper = mount(<Cart {...props} />);
 
     expect(wrapper.exists('.content')).toBe(true);
     expect(wrapper.contains(<h1 className="page--heading">Your Cart has 1 Item</h1>)).toBe(true);
     expect(wrapper.exists('.cart--section')).toBe(true);
-    expect(wrapper.props().cart).toHaveLength(1);
+    expect(wrapper.props().items).toHaveLength(1);
     expect(wrapper.props().removeItem()).toEqual(1);
     expect(wrapper).toMatchSnapshot();
   });

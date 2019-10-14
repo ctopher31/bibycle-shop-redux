@@ -8,18 +8,21 @@ import productsReducer from '../reducers';
 
 describe('ProductsContainer', () => {
   it('should render the container component', () => {
-    const store = createStore(productsReducer, {
-      products: [
-        {
-          number: '51001',
-          name: 'widget',
-          price: 35.57,
-          salePrice: 32.95,
-          onSale: true,
-        },
-      ],
-      addItem: () => 1,
-    });
+    const initialState = {
+      products: {
+        items: [
+          {
+            number: '51001',
+            name: 'widget',
+            price: 35.57,
+            salePrice: 32.95,
+            onSale: true,
+          },
+        ],
+      },
+    };
+
+    const store = createStore(productsReducer, initialState);
 
     const wrapper = mount(
       <Provider store={store}>
