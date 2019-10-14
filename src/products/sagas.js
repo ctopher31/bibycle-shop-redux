@@ -1,24 +1,14 @@
 import { loadProducts } from './actions';
-import { addItem } from '../cart/actions';
-import { addItemAction as cartAddItemAction, cartAddItem } from '../cart/sagas';
-import store from '../store';
+import { addItemAction as cartAddItemAction } from '../cart/sagas';
 
-// export const addItemAction = key => {
-//   cartAddItemAction(key);
-// };
-
-export const addItemAction = key => async dispatch => {
-  // Re-calculate Shipping
-  const state = store.getState();
-  const response = await fetch(`${window.location.origin}/data.json`);
-  const { shipping } = await response.json();
-  dispatch(addItem(cartAddItem(state, key, shipping)));
+export const addItemAction = key => dispatch => {
+  dispatch(cartAddItemAction(key));
 };
 
 export const loadProductsAction = () => async dispatch => {
   // Load Products
-  const response = await fetch(`${window.location.origin}/data.json`);
-  const { products } = await response.json();
+  const response = await fetch(`${window.location.origin}/data.json`).catch(e => console.log(`Error: ${e}`));
+  const { products } = await response.json().catch(e => console.log(`Error: ${e}`));
   dispatch(
     loadProducts({
       items: [...products],
