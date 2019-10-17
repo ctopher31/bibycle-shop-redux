@@ -1,6 +1,5 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import sagasMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import monitorReducersEnhancer from './enhancers/monitor-reducers';
 import loggerMiddleware from './middleware/logger';
@@ -13,7 +12,7 @@ const rootReducer = combineReducers({
 });
 
 const configureStore = (preloadedState = {}) => {
-  const middlewares = [loggerMiddleware /*, sagasMiddleware*/, thunkMiddleware];
+  const middlewares = [loggerMiddleware, thunkMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
   const enhancers = [middlewareEnhancer, monitorReducersEnhancer];

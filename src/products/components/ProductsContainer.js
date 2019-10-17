@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { addItemAction, loadProductsAction } from '../sagas';
+import { loadProductsAction } from '../sagas';
+import { addItemAction } from '../../cart/sagas';
 import Products from './Products';
 
 const mapStateToProps = state => ({
@@ -8,7 +9,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addItem: key => dispatch(addItemAction(key)),
-  loadProducts: () => dispatch(loadProductsAction()),
+  loadProducts: () => loadProductsAction(),
 });
 
 export default connect(
