@@ -1,5 +1,8 @@
+import { put, call, takeEvery } from 'redux-saga/effects';
 import { addItem, removeItem, clearCart } from './actions';
+import { api } from './services';
 import store from '../store';
+console.log(store);
 
 export const cartAddItem = (state = {}, key, shipping) => {
   let items;
@@ -62,31 +65,50 @@ export const cartRemoveItem = (state = {}, key, shipping) => {
   };
 };
 
-export const addItemAction = key => async dispatch => {
-  // Re-calculate Shipping
+export function* addItemSaga(action) {
   const state = store.getState();
-  const response = await fetch(`${window.location.origin}/data.json`);
-  const { shipping } = await response.json();
-  dispatch(addItem(cartAddItem(state, key, shipping)));
-};
+  const shipping = yield call(api.getShipping);
+  const payload = yield call(cartAddItem, [state, action.key, shipping]);
+  yield put(addItem(payload));
+}
 
-export const removeItemAction = key => async dispatch => {
-  // Re-calculate Shipping
+export function* watchAddItem() {
+  /*
+    takeEvery will fork a new `getAllProducts` task on each GET_ALL_PRODUCTS actions
+    i.e. concurrent GET_ALL_PRODUCTS actions are allowed
+  */
+  yield takeEvery(addItem, addItemSaga);
+}
+
+export function* removeItemSaga(action) {
   const state = store.getState();
-  const response = await fetch(`${window.location.origin}/data.json`);
-  const { shipping } = await response.json();
-  dispatch(removeItem(cartRemoveItem(state, key, shipping)));
-};
+  const shipping = yield call(api.getShipping);
+  const payload = yield call(cartRemoveItem, [state, action.key, shipping]);
+  yield put(removeItem(payload));
+}
 
-export const clearCartAction = key => async dispatch => {
-  // Re-calculate Shipping
-  dispatch(
-    clearCart({
-      items: [],
-      cartCount: 0,
-      shipping: 0,
-      subtotal: 0,
-      total: 0,
-    })
-  );
-};
+export function* watchRemoveItem() {
+  /*
+    takeEvery will fork a new `getAllProducts` task on each GET_ALL_PRODUCTS actions
+    i.e. concurrent GET_ALL_PRODUCTS actions are allowed
+  */
+  yield takeEvery(removeItem, removeItemSaga);
+}
+
+export function* clearCartSaga() {
+  yield put(removeItem({
+    items: [],
+    cartCount: 0,
+    shipping: 0,
+    subtotal: 0,
+    total: 0,
+  }));
+}
+
+export function* watchClearCart() {
+  /*
+    takeEvery will fork a new `getAllProducts` task on each GET_ALL_PRODUCTS actions
+    i.e. concurrent GET_ALL_PRODUCTS actions are allowed
+  */
+  yield takeEvery(clearCart, clearCartSaga);
+}

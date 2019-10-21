@@ -1,17 +1,16 @@
-import { loadProducts } from './actions';
-import { addItemAction as cartAddItemAction } from '../cart/sagas';
+import { put, call, takeEvery } from 'redux-saga/effects';
+import { getProducts } from './actions';
+import { api } from './services';
 
-export const addItemAction = key => dispatch => {
-  dispatch(cartAddItemAction(key));
-};
+export function* getProductsSaga() {
+  const products = yield call(api.getProducts);
+  yield put(getProducts(products));
+}
 
-export const loadProductsAction = () => async dispatch => {
-  // Load Products
-  const response = await fetch(`${window.location.origin}/data.json`).catch(e => console.log(`Error: ${e}`));
-  const { products } = await response.json().catch(e => console.log(`Error: ${e}`));
-  dispatch(
-    loadProducts({
-      items: [...products],
-    })
-  );
-};
+export function* watchGetProducts() {
+  /*
+    takeEvery will fork a new `getAllProducts` task on each GET_ALL_PRODUCTS actions
+    i.e. concurrent GET_ALL_PRODUCTS actions are allowed
+  */
+  yield takeEvery(getProducts, getProductsSaga);
+}

@@ -1,6 +1,6 @@
-import { LOAD_PRODUCTS } from './actionTypes';
+import { GET_PRODUCTS } from './actionTypes';
 
-export const loadProducts = payload => ({
-  type: LOAD_PRODUCTS,
+export const getProducts = payload => ({
+  type: GET_PRODUCTS,
   payload,
 });

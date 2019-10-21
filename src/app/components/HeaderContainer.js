@@ -4,6 +4,5 @@ import Header from './Header';
 const mapStateToProps = state => ({ cartCount: state.cart.cartCount });
 
 export default connect(
-  mapStateToProps,
-  null
+  mapStateToProps
 )(Header);

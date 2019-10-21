@@ -1,5 +1,5 @@
-import { loadProducts } from './actions';
-import { LOAD_PRODUCTS } from './actionTypes';
+import { getProducts } from './actions';
+import { GET_PRODUCTS } from './actionTypes';
 
 describe('Products Actions', () => {
   describe('Products add item', () => {
@@ -16,11 +16,11 @@ describe('Products Actions', () => {
         ],
       };
       const expectedOutput = {
-        type: LOAD_PRODUCTS,
+        type: GET_PRODUCTS,
         payload,
       };
 
-      expect(loadProducts(payload)).toEqual(expectedOutput);
+      expect(getProducts(payload)).toEqual(expectedOutput);
     });
   });
 });
