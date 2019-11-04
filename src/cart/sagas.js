@@ -2,25 +2,18 @@ import { put, call, select, takeLatest } from 'redux-saga/effects';
 import {
   ADD_ITEM_REQUEST,
   REMOVE_ITEM_REQUEST,
-  CLEAR_CART_REQUEST,
 } from './actionTypes';
 import {
   addItemSuccess,
   addItemFailure,
   removeItemSuccess,
   removeItemFailure,
-  clearCart,
 } from './actions';
 import { getShipping } from './services';
 
 export const cartAddItem = (cart, products, key) => {
-  if (cart.items !== undefined && cart.items.some(item => item.number === key)) {
-    return cart.items.map(item => {
-      if (item.number === key) {
-        item.qty += 1;
-      }
-      return item;
-    });
+  if (cart.items.some(item => item.number === key)) {
+    return cart.items.map(item => (item.number === key ? { ...item, qty: item.qty += 1 } : item));
   } else {
     return [
       ...cart.items,
@@ -56,21 +49,20 @@ const calculateShipping = async subtotal => {
   return subtotal > 0 ? shipping : 0;
 };
 
-const getTotal = (subtotal, shipping) => (subtotal > 0 ? subtotal + shipping : 0);
+const calculateTotal = (subtotal, shipping) => (subtotal > 0 ? subtotal + shipping : 0);
 
 export function* addItemSaga(action) {
   try {
-    const state = yield select();
     const cart = yield select(state => state.cart);
     const products = yield select(state => state.products);
-    const newCart = yield call(cartAddItem, cart, products, action.key);
-    const cartCount = yield call(calculateCartCount, newCart);
-    const subtotal = yield call(calculateSubtotal, newCart);
+    const items = yield call(cartAddItem, cart, products, action.key);
+    const cartCount = yield call(calculateCartCount, items);
+    const subtotal = yield call(calculateSubtotal, items);
     const shipping = yield call(calculateShipping, subtotal);
-    const total = yield call(getTotal, subtotal, shipping);
+    const total = yield call(calculateTotal, subtotal, shipping);
     yield put(
       addItemSuccess({
-        items: newCart,
+        items,
         cartCount,
         subtotal,
         shipping,
@@ -89,14 +81,14 @@ export function* watchAddItemSaga() {
 export function* removeItemSaga(action) {
   try {
     const cart = yield select(state => state.cart);
-    const newCart = yield call(cartRemoveItem, cart, action.key);
-    const cartCount = yield call(calculateCartCount, newCart);
-    const subtotal = yield call(calculateSubtotal, newCart);
+    const items = yield call(cartRemoveItem, cart, action.key);
+    const cartCount = yield call(calculateCartCount, items);
+    const subtotal = yield call(calculateSubtotal, items);
     const shipping = yield call(calculateShipping, subtotal);
-    const total = yield call(getTotal, subtotal, shipping);
+    const total = yield call(calculateTotal, subtotal, shipping);
     yield put(
       removeItemSuccess({
-        items: newCart,
+        items,
         cartCount,
         subtotal,
         shipping,
@@ -110,12 +102,4 @@ export function* removeItemSaga(action) {
 
 export function* watchRemoveItemSaga() {
   yield takeLatest(REMOVE_ITEM_REQUEST, removeItemSaga);
-}
-
-export function* clearCartSaga() {
-  yield put(clearCart());
-}
-
-export function* watchClearCartSaga() {
-  yield takeLatest(CLEAR_CART_REQUEST, clearCartSaga);
 }

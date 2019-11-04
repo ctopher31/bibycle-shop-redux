@@ -1,9 +1,9 @@
-import { getProducts } from './actions';
-import { GET_PRODUCTS } from './actionTypes';
+import { getProductsSuccess, getProductsFailure } from './actions';
+import { GET_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILURE } from './actionTypes';
 
 describe('Products Actions', () => {
-  describe('Products add item', () => {
-    it('returns the correct addItem action', () => {
+  describe('Get Products', () => {
+    it('returns the correct getProductsSuccess action', () => {
       const payload = {
         items: [
           {
@@ -16,11 +16,21 @@ describe('Products Actions', () => {
         ],
       };
       const expectedOutput = {
-        type: GET_PRODUCTS,
+        type: GET_PRODUCTS_SUCCESS,
         payload,
       };
 
-      expect(getProducts(payload)).toEqual(expectedOutput);
+      expect(getProductsSuccess(payload)).toEqual(expectedOutput);
+    });
+
+    it('returns the correct getProductsFailure action', () => {
+      const payload = 'There was an error';
+      const expectedOutput = {
+        type: GET_PRODUCTS_FAILURE,
+        payload,
+      };
+
+      expect(getProductsFailure(payload)).toEqual(expectedOutput);
     });
   });
 });

@@ -5,7 +5,6 @@ import {
   REMOVE_ITEM_REQUEST,
   REMOVE_ITEM_SUCCESS,
   REMOVE_ITEM_FAILURE,
-  CLEAR_CART_REQUEST,
   CLEAR_CART,
 } from './actionTypes';
 
@@ -37,10 +36,6 @@ export const removeItemSuccess = payload => ({
 export const removeItemFailure = payload => ({
   type: REMOVE_ITEM_FAILURE,
   payload,
-});
-
-export const clearCartRequest = () => ({
-  type: CLEAR_CART_REQUEST,
 });
 
 export const clearCart = () => ({

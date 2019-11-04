@@ -8,7 +8,7 @@ import loggerMiddleware from './middleware/logger';
 import productsReducer from './products/reducers';
 import cartReducer from './cart/reducers';
 import { getProductsSaga } from './products/sagas';
-import { watchAddItemSaga, watchRemoveItemSaga, watchClearCartSaga } from './cart/sagas';
+import { watchAddItemSaga, watchRemoveItemSaga } from './cart/sagas';
 
 const rootReducer = combineReducers({
   products: productsReducer,
@@ -20,17 +20,14 @@ function* rootSaga() {
     fork(getProductsSaga),
     fork(watchAddItemSaga),
     fork(watchRemoveItemSaga),
-    fork(watchClearCartSaga),
   ]);
 }
 
 export const configureStore = (preloadedState = {}) => {
   const sagaMiddleware = createSagaMiddleware();
-  const middlewares = [loggerMiddleware, thunkMiddleware, sagaMiddleware];
-  const middlewareEnhancer = applyMiddleware(...middlewares);
-  const enhancers = [middlewareEnhancer, monitorReducersEnhancer];
-  const composedEnhancers = composeWithDevTools(...enhancers);
-  const store = createStore(rootReducer, preloadedState, composedEnhancers);
+  const middleware = applyMiddleware(loggerMiddleware, thunkMiddleware, sagaMiddleware);
+  const enhancers = composeWithDevTools(middleware, monitorReducersEnhancer);
+  const store = createStore(rootReducer, preloadedState, enhancers);
   sagaMiddleware.run(rootSaga);
 
   if (process.env.NODE_ENV !== 'production' && module.hot) {
