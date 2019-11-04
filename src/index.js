@@ -1,9 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import './index.css';
 import App from './app/components/App';
-import store from './store';
+import { configureStore } from './store';
+
+const store = configureStore({
+  products: {
+    items: [],
+    loaded: false,
+    error: false,
+    message: '',
+  },
+  cart: {
+    items: [],
+    cartCount: 0,
+    shipping: 0,
+    subtotal: 0,
+    total: 0,
+    error: false,
+    message: '',
+  },
+});
 
 const renderApp = () =>
   ReactDOM.render(
@@ -14,8 +31,6 @@ const renderApp = () =>
   );
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
-  const state = store.getState();
-  console.log(state);
   module.hot.accept('./app/components/App', renderApp);
 }
 

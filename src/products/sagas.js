@@ -1,5 +1,5 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
-import { getProductsRequest, getProductsSuccess, getProductsFailure } from './actions';
+import { put, call } from 'redux-saga/effects';
+import { getProductsSuccess, getProductsFailure } from './actions';
 import { getProducts } from './services';
 
 export function* getProductsSaga() {
@@ -9,8 +9,4 @@ export function* getProductsSaga() {
   } catch (error) {
     yield put(getProductsFailure(error));
   }
-}
-
-export function* watchGetProductsSaga() {
-  yield takeLatest(getProductsRequest, getProductsSaga);
 }

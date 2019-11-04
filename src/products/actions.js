@@ -1,8 +1,4 @@
-import { GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILURE } from './actionTypes';
-
-export const getProductsRequest = () => ({
-  type: GET_PRODUCTS_REQUEST,
-});
+import { GET_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILURE } from './actionTypes';
 
 export const getProductsSuccess = payload => ({
   type: GET_PRODUCTS_SUCCESS,

@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import ProductListing from './ProductListing';
 
 class Products extends Component {
-  componentDidMount() {
-    this.props.loadProducts();
-  }
-
   render() {
     const { items, addItem } = this.props;
 

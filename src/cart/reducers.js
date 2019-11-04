@@ -12,6 +12,10 @@ const cartReducer = (state = {}, action) => {
     case REMOVE_ITEM_SUCCESS:
       return { ...state, ...action.payload, error: false, message: '' };
 
+    case ADD_ITEM_FAILURE:
+    case REMOVE_ITEM_FAILURE:
+      return { ...state, error: true, message: action.payload };
+
     case CLEAR_CART:
       return {
         ...state,
