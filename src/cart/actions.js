@@ -1,16 +1,48 @@
-import { ADD_ITEM, REMOVE_ITEM, CLEAR_CART } from './actionTypes';
+import {
+  ADD_ITEM_REQUEST,
+  ADD_ITEM_SUCCESS,
+  ADD_ITEM_FAILURE,
+  REMOVE_ITEM_REQUEST,
+  REMOVE_ITEM_SUCCESS,
+  REMOVE_ITEM_FAILURE,
+  CLEAR_CART_REQUEST,
+  CLEAR_CART,
+} from './actionTypes';
 
-export const addItem = payload => ({
-  type: ADD_ITEM,
+export const addItemRequest = key => ({
+  type: ADD_ITEM_REQUEST,
+  key,
+});
+
+export const addItemSuccess = payload => ({
+  type: ADD_ITEM_SUCCESS,
   payload,
 });
 
-export const removeItem = payload => ({
-  type: REMOVE_ITEM,
+export const addItemFailure = payload => ({
+  type: ADD_ITEM_FAILURE,
   payload,
 });
 
-export const clearCart = payload => ({
+export const removeItemRequest = key => ({
+  type: REMOVE_ITEM_REQUEST,
+  key,
+});
+
+export const removeItemSuccess = payload => ({
+  type: REMOVE_ITEM_SUCCESS,
+  payload,
+});
+
+export const removeItemFailure = payload => ({
+  type: REMOVE_ITEM_FAILURE,
+  payload,
+});
+
+export const clearCartRequest = () => ({
+  type: CLEAR_CART_REQUEST,
+});
+
+export const clearCart = () => ({
   type: CLEAR_CART,
-  payload,
 });

@@ -1,14 +1,14 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+//import thunkMiddleware from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import { fork, all } from 'redux-saga/effects'
+import { fork, all } from 'redux-saga/effects';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import monitorReducersEnhancer from './enhancers/monitor-reducers';
 import loggerMiddleware from './middleware/logger';
 import productsReducer from './products/reducers';
 import cartReducer from './cart/reducers';
-import { getProductsSaga, watchGetProducts } from './products/sagas';
-import { addItemSaga, watchAddItem, removeItemSaga, watchRemoveItem, clearCartSaga, watchClearCart } from './cart/sagas';
+import { watchGetProductsSaga } from './products/sagas';
+import { watchAddItemSaga, watchRemoveItemSaga, watchClearCartSaga } from './cart/sagas';
 
 const rootReducer = combineReducers({
   products: productsReducer,
@@ -17,20 +17,16 @@ const rootReducer = combineReducers({
 
 function* rootSaga() {
   yield all([
-    fork(getProductsSaga),
-    fork(watchGetProducts),
-    fork(addItemSaga),
-    fork(watchAddItem),
-    fork(removeItemSaga),
-    fork(watchRemoveItem),
-    fork(clearCartSaga),
-    fork(watchClearCart),
+    fork(watchGetProductsSaga),
+    fork(watchAddItemSaga),
+    //fork(watchRemoveItemSaga),
+    //fork(watchClearCartSaga),
   ]);
 }
 
 const configureStore = (preloadedState = {}) => {
   const sagaMiddleware = createSagaMiddleware();
-  const middlewares = [loggerMiddleware, thunkMiddleware, sagaMiddleware];
+  const middlewares = [loggerMiddleware, /*thunkMiddleware, */ sagaMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
   const enhancers = [middlewareEnhancer, monitorReducersEnhancer];
@@ -51,6 +47,9 @@ const configureStore = (preloadedState = {}) => {
 const store = configureStore({
   products: {
     items: [],
+    loaded: false,
+    error: false,
+    message: '',
   },
   cart: {
     items: [],
@@ -58,6 +57,8 @@ const store = configureStore({
     shipping: 0,
     subtotal: 0,
     total: 0,
+    error: false,
+    message: '',
   },
 });
 

@@ -1,13 +1,16 @@
-import { GET_PRODUCTS } from './actionTypes';
+import { GET_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILURE } from './actionTypes';
 
-const products = (state = {}, action) => {
+const productsReducer = (state = {}, action) => {
   switch (action.type) {
-    case GET_PRODUCTS:
-      return { ...state, ...action.payload };
+    case GET_PRODUCTS_SUCCESS:
+      return { ...state, items: action.payload, loaded: true, error: false, message: '' };
+
+    case GET_PRODUCTS_FAILURE:
+      return { ...state, loaded: false, error: true, message: action.payload };
 
     default:
-      return { ...state };
+      return state;
   }
 };
 
-export default products;
+export default productsReducer;
